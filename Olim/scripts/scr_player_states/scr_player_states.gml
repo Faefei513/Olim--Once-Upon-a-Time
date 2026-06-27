@@ -13,7 +13,7 @@ function player_state_walk() {
     x_speed = _hmove * move_speed;
     if (_hmove != 0) facing = sign(_hmove);
     sprite_index = spr_player_walk;
-    image_xscale = facing;
+    image_xscale = facing * player_scale;
     if (_hmove == 0) { state = player_state_idle; return; }
     if (input_check_pressed("jump") && on_ground) { state = player_state_jump; return; }
     if (!on_ground) { state = player_state_fall; return; }
@@ -30,7 +30,7 @@ function player_state_fall() {
     if (_hmove != 0) facing = sign(_hmove);
     y_speed += GRAVITY;
     sprite_index = (y_speed < 0) ? spr_player_jump : spr_player_fall;
-    image_xscale = facing;
+    image_xscale = facing * player_scale;
     if (y_speed < 0) {
         // Going up: lock to frame 1 (thrust/upward pose)
         image_speed = 0;
@@ -53,7 +53,7 @@ function player_state_fly() {
     sprite_index = spr_player_fly;
     image_speed = 0;
     image_index = 1;
-    image_xscale = facing;
+    image_xscale = facing * player_scale;
     state = player_state_fall;
 }
 function player_state_glide() {
@@ -63,7 +63,7 @@ function player_state_glide() {
     y_speed += GLIDE_GRAVITY;
     y_speed = min(y_speed, GLIDE_TERMINAL);
     sprite_index = spr_player_glide;
-    image_xscale = facing;
+    image_xscale = facing * player_scale;
     // Animate but skip frame 1
     image_speed = 0.15;
     if (floor(image_index) == 1) image_index = 2;

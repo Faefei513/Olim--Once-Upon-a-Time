@@ -3,7 +3,7 @@
 #macro FLY_THRUST_FORCE    -18.0
 #macro GRAVITY              0.8
 #macro MOVE_SPEED           8.0
-#macro JUMP_FORCE          -20.0
+#macro JUMP_FORCE          -16.0
 #macro GLIDE_GRAVITY        0.25
 #macro GLIDE_TERMINAL       3.0
 #macro GLIDE_H_MULTIPLIER   1.5

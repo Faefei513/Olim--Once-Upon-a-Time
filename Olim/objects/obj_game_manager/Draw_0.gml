@@ -1,10 +1,8 @@
-// Draw sky background stretched to fill the entire room
-if (global.sky_bg != -1) {
-    draw_sprite_stretched(global.sky_bg, 0, 0, 0, room_width, room_height);
+// Draw the correct sky background for the current room
+var _bg = (room == rm_hub) ? global.hub_bg : global.sky_bg;
+if (_bg != -1) {
+    var _sky_mul = (room == rm_hub) ? 1.35 : 1.15;
+    var _sky_scale = _sky_mul * room_height / sprite_get_height(_bg);
+    var _sky_y = (room == rm_hub) ? -180 : -200;
+    draw_sprite_ext(_bg, 0, 0, _sky_y, _sky_scale, _sky_scale, 0, c_white, 1);
 }
-
-// Draw green floor (bottom 32 pixels of room)
-var _floor_y = room_height - (TILE_SIZE * 2);
-draw_set_colour(make_colour_rgb(76, 153, 0));
-draw_rectangle(0, _floor_y, room_width, room_height, false);
-draw_set_colour(c_white);

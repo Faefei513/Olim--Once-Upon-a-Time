@@ -3,14 +3,13 @@ function player_move_and_collide() {
     y_speed = clamp(y_speed, -20, 20);
     x_speed = clamp(x_speed, -20, 20);
 
-    // Floor = top of bottom 2 tile rows
-    var _floor_y = room_height - (TILE_SIZE * 2);
+    var _tile_h = (global.floor_tile != -1) ? sprite_get_height(global.floor_tile) * global.floor_scale : (TILE_SIZE * 2);
+    var _floor_y = room_height - _tile_h + 140;
 
     // --- Horizontal ---
     x += x_speed;
-    // Keep in room (use sprite half-width ~225 for 450px sprite)
-    var _hw = sprite_get_xoffset(sprite_index);
-    if (_hw <= 0) _hw = 225;
+    var _hw = sprite_get_xoffset(sprite_index) * abs(image_xscale);
+    if (_hw <= 0) _hw = 225 * abs(image_xscale);
     if (x < _hw) { x = _hw; x_speed = 0; }
     if (x > room_width - _hw) { x = room_width - _hw; x_speed = 0; }
 
@@ -32,8 +31,7 @@ function player_move_and_collide() {
         on_ground = true;
     }
 
-    // Ceiling: top of sprite
-    var _sprite_h = sprite_get_height(sprite_index);
+    var _sprite_h = sprite_get_height(sprite_index) * abs(image_yscale);
     if (y - _sprite_h < 0) {
         y = _sprite_h;
         y_speed = 0;
