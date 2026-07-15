@@ -1,0 +1,11 @@
+stages = [];
+stage_index = 0;
+prompt = "test";
+options = ["correct", "incorrect", "incorrect"];
+correct_index = 0;
+selected = 0;
+alpha = 0;
+dlg_state = "fade_in";
+caller = noone;
+option_alpha = array_create(array_length(options), 1);
+fading_option = -1;
