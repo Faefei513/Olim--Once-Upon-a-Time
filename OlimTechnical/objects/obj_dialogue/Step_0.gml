@@ -48,7 +48,7 @@ if (!_is_narrative) {
     }
 }
 
-if (!_is_narrative && input_check_pressed("skip")) {
+if (!_is_narrative && !any_correct && input_check_pressed("skip")) {
     var _answer = options[correct_index];
     options = [];
     option_alpha = [];
@@ -60,7 +60,8 @@ if (!_is_narrative && input_check_pressed("skip")) {
 }
 
 if (input_check_pressed("jump") || input_check_pressed("interact")) {
-    if (_is_narrative || selected == correct_index) {
+    if (_is_narrative || selected == correct_index || any_correct) {
+        last_selected = selected;
         if (stage_index < array_length(stages) - 1) {
             stage_index++;
             prompt = stages[stage_index].prompt;

@@ -4,6 +4,19 @@ var _gui_h = display_get_gui_height();
 var _bar_h = 140;
 var _bar_y = _gui_h - _bar_h;
 
+if (overlay_spr != -1) {
+    draw_set_alpha(alpha * 0.65);
+    draw_set_colour(make_colour_rgb(30, 30, 30));
+    draw_rectangle(0, 0, _gui_w, _gui_h, false);
+
+    var _knife_h = sprite_get_height(overlay_spr);
+    var _area_h = _gui_h - _bar_h;
+    var _target_h = _area_h * 0.75;
+    var _kscale = _target_h / _knife_h;
+    draw_set_alpha(alpha);
+    draw_sprite_ext(overlay_spr, 0, _gui_w / 2, _area_h / 2, _kscale, _kscale, 0, c_white, alpha);
+}
+
 draw_set_alpha(alpha * 0.7);
 draw_set_colour(c_black);
 draw_rectangle(0, _bar_y, _gui_w, _gui_h, false);
@@ -13,7 +26,7 @@ draw_set_colour(c_white);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_font(-1);
-draw_text(_gui_w / 2, _bar_y + _bar_h / 2, prompt);
+draw_text_ext(_gui_w / 2, _bar_y + _bar_h / 2, prompt, -1, _gui_w - 80);
 
 var _num = array_length(options);
 
@@ -51,14 +64,18 @@ draw_set_colour(c_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_bottom);
 if (_num > 0) {
-    draw_text(20, _gui_h - 10, "W + S to change option, SPACE to choose, ENTER to skip + reveal answer");
-    draw_text(20, _gui_h - 30, "Hover over Latin words for help like grammar info");
+    if (show_latin_hints) {
+        draw_text(20, _gui_h - 10, "W + S to change option, SPACE to choose, ENTER to skip + reveal answer");
+        draw_text(20, _gui_h - 30, "Hover over Latin words for help like grammar info");
+    } else {
+        draw_text(20, _gui_h - 10, "W + S to change option, SPACE to choose");
+    }
 } else {
     draw_text(20, _gui_h - 10, "SPACE to continue");
 }
 
 // Word hover tooltip on translation stages
-if (_num > 0 && alpha >= 1) {
+if (_num > 0 && alpha >= 1 && show_latin_hints) {
     draw_set_font(-1);
     var _prompt_w = string_width(prompt);
     var _char_h = string_height("A");
@@ -93,7 +110,8 @@ if (_num > 0 && alpha >= 1) {
                 }
             }
 
-            var _entry = global.grammar[$ _clean];
+            var _entry = grammar_overrides[$ _clean];
+            if (_entry == undefined) _entry = global.grammar[$ _clean];
             if (_entry != undefined) {
                 var _display = variable_struct_exists(_entry, "display") ? _entry.display : _clean;
                 var _tip_text = _display + "\n" + _entry.info + "\nEnglish: " + _entry.eng;
@@ -127,6 +145,8 @@ if (_num > 0 && alpha >= 1) {
         }
     }
 }
+
+draw_game_menu();
 
 draw_set_alpha(1);
 draw_set_colour(c_white);

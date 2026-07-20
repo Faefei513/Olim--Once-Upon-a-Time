@@ -21,6 +21,52 @@ global.forest_bg = sprite_add("forest_bg.png", 1, false, false, 0, 0);
 global.forest_fg = sprite_add("forest_fg.png", 1, false, false, 0, 0);
 global.forest_floor = sprite_add("forest_floor.png", 1, false, false, 0, 0);
 global.forest_rune_spr = sprite_add("forest_rune.png", 12, false, false, 225, 225);
+global.isles_bg = sprite_add("isles_bg.png", 1, false, false, 0, 0);
+global.isles_bg2 = sprite_add("isles_bg2.png", 1, false, false, 0, 0);
+global.isles_fg = sprite_add("isles_fg.png", 1, false, false, 0, 0);
+global.isles_fg2 = sprite_add("isles_fg2.png", 1, false, false, 0, 0);
+global.isles_knife_spr = sprite_add("isles_knife.png", 1, false, false, 225, 225);
+global.isles_cutscene_spr = [
+    sprite_add("isles_cutscene_0.png", 8, false, false, 960, 450),
+    sprite_add("isles_cutscene_1.png", 8, false, false, 960, 450),
+    sprite_add("isles_cutscene_2.png", 6, false, false, 960, 450)
+];
+global.manta_spr = {
+    departure_b: sprite_add("manta_departure_b.png", 1, false, false, 0, 0),
+    departure_f: sprite_add("manta_departure_f.png", 1, false, false, 0, 0),
+    runway_b: sprite_add("manta_runway_b.png", 1, false, false, 0, 0),
+    runway_f: sprite_add("manta_runway_f.png", 1, false, false, 0, 0),
+    liftoff1_b: sprite_add("manta_liftoff1_b.png", 1, false, false, 0, 0),
+    liftoff1_f: sprite_add("manta_liftoff1_f.png", 1, false, false, 0, 0),
+    liftoff2_b: sprite_add("manta_liftoff2_b.png", 1, false, false, 0, 0),
+    liftoff2_f: sprite_add("manta_liftoff2_f.png", 1, false, false, 0, 0),
+    descent1_b: sprite_add("manta_descent1_b.png", 1, false, false, 0, 0),
+    descent1_f: sprite_add("manta_descent1_f.png", 1, false, false, 0, 0),
+    descent2_b: sprite_add("manta_descent2_b.png", 1, false, false, 0, 0),
+    descent2_f: sprite_add("manta_descent2_f.png", 1, false, false, 0, 0),
+    taxi1_b: sprite_add("manta_taxi1_b.png", 1, false, false, 0, 0),
+    taxi1_f: sprite_add("manta_taxi1_f.png", 1, false, false, 0, 0),
+    taxi2_b: sprite_add("manta_taxi2_b.png", 1, false, false, 0, 0),
+    taxi2_f: sprite_add("manta_taxi2_f.png", 1, false, false, 0, 0),
+    landing_b: sprite_add("manta_landing_b.png", 1, false, false, 0, 0),
+    landing_f: sprite_add("manta_landing_f.png", 1, false, false, 0, 0)
+};
+global.isles_segments = [
+    [0, 2000, 734],
+    [2520, 2916, 330],
+    [3700, 4000, 580],
+    [4130, 4300, 385],
+    [4700, 5450, 315],
+    [6336, 10080, 739],
+    [10080, 11808, 698],
+    [11808, 15120, 658]
+];
+global.isles2_segments = [
+    [6500, 9800, 694],
+    [9800, 13250, 682],
+    [13250, 16700, 670],
+    [16700, 20160, 655]
+];
 global.forest_gaps = [
     [4464, 5112],
     [15120, 17496],
@@ -44,6 +90,14 @@ global.esc_hint_timer = 10 * game_get_speed(gamespeed_fps);
 global.menu_open = false;
 global.menu_hovered = -1;
 global.menu_teleport_expanded = false;
+global.manta_arriving = false;
+global.isles_cutscene_seen = false;
+global.ending_state = 0;
+global.ending_alpha = 0;
+global.cutscene_state = 0;
+global.cutscene_alpha = 0;
+global.cutscene_frame = 0;
+global.cutscene_timer = 0;
 
 global.grammar = {};
 global.grammar[$ "OLIM"] = { info: "Adverb", eng: "Once upon a time" };
@@ -118,3 +172,5 @@ global.grammar[$ "UT"] = { info: "Conjunction", eng: "To" };
 global.grammar[$ "VIDEAM"] = { info: "Verb, 1st Person, Singular, Present Active Subjunctive", eng: "Maybe see" };
 global.grammar[$ "CERTUS"] = { info: "Adjective, Nominative, Singular", eng: "Certain" };
 global.grammar[$ "SUM"] = { info: "Verb, 1st Person, Singular, Present Active Indicative", eng: "Am" };
+global.grammar[$ "SIC"] = { info: "Adverb", eng: "Thus" };
+global.grammar[$ "CADENT"] = { info: "Verb, 3rd Person, Plural, Future Active Indicative", eng: "Will fall" };

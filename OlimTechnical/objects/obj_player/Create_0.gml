@@ -9,6 +9,7 @@ has_flight = true; has_extended_flight = false;
 has_water_glide = false; has_wind_dash = false;
 can_interact = false; interact_target = noone;
 last_ground_x = x;
+last_ground_y = y;
 hub_full_anim = false;
 sprite_index = spr_player_idle; image_speed = 1;
 image_xscale = player_scale;

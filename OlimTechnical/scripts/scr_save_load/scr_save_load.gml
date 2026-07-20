@@ -6,6 +6,7 @@ function save_game() {
     ini_write_real("game", "current_realm", global.current_realm);
     ini_write_real("game", "hub_rune_solved", global.hub_rune_solved);
     ini_write_real("game", "forest_rune_solved", global.forest_rune_solved);
+    ini_write_real("game", "isles_cutscene_seen", global.isles_cutscene_seen);
     ini_write_string("game", "current_room", room_get_name(room));
     var _player = instance_find(obj_player, 0);
     if (_player != noone) {
@@ -31,7 +32,8 @@ function load_game(_slot) {
     global.current_realm = ini_read_real("game", "current_realm", E_REALM.SKY);
     global.hub_rune_solved = ini_read_real("game", "hub_rune_solved", 0);
     global.forest_rune_solved = ini_read_real("game", "forest_rune_solved", 0);
-    var _room_name = ini_read_string("game", "current_room", "rm_sky_hub");
+    global.isles_cutscene_seen = ini_read_real("game", "isles_cutscene_seen", 0);
+    var _room_name = ini_read_string("game", "current_room", "rm_alpha");
     global.player_spawn_x = ini_read_real("game", "player_x", -1);
     global.player_spawn_y = ini_read_real("game", "player_y", -1);
     ini_close();
@@ -45,6 +47,7 @@ function new_game(_slot) {
     global.current_realm = E_REALM.SKY;
     global.hub_rune_solved = false;
     global.forest_rune_solved = false;
+    global.isles_cutscene_seen = false;
     global.player_spawn_x = -1;
     global.player_spawn_y = -1;
     reset_hints();
@@ -58,6 +61,7 @@ function start_test_run(_creator) {
     global.current_realm = E_REALM.SKY;
     global.hub_rune_solved = false;
     global.forest_rune_solved = false;
+    global.isles_cutscene_seen = false;
     global.player_spawn_x = -1;
     global.player_spawn_y = -1;
     reset_hints();
@@ -72,13 +76,15 @@ function save_slot_info(_slot) {
     if (!save_slot_exists(_slot)) return undefined;
     var _file = "save_slot_" + string(_slot) + ".ini";
     ini_open(_file);
-    var _room_name = ini_read_string("game", "current_room", "rm_sky_hub");
+    var _room_name = ini_read_string("game", "current_room", "rm_alpha");
     ini_close();
 
     var _display = "Unknown";
-    if (_room_name == "rm_sky_hub") _display = "Alpha Room";
+    if (_room_name == "rm_alpha") _display = "Alpha Room";
     else if (_room_name == "rm_hub") _display = "The Hub";
     else if (_room_name == "rm_forest") _display = "The Forest";
+    else if (_room_name == "rm_isles") _display = "The Isles";
+    else if (_room_name == "rm_isles2") _display = "The Isles";
 
     return { room_display: _display };
 }

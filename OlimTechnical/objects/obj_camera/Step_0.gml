@@ -10,6 +10,12 @@ if (target != noone) {
     var _tx = target.x - VIEW_W / 2;
     var _ty = target.y - VIEW_H / 2;
 
+    var _manta = instance_find(obj_manta, 0);
+    if (_manta != noone && _manta.state == E_MANTA.TAXI) {
+        _tx = _manta.x - VIEW_W / 2;
+        _ty = _manta.y + 200 - VIEW_H / 2;
+    }
+
     // Snap instantly on first frame, then lerp
     if (cam_x == 0 && cam_y == 0) {
         cam_x = _tx;

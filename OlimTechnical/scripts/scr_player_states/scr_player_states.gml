@@ -13,6 +13,7 @@ function player_state_walk() {
     x_speed = _hmove * move_speed;
     if (_hmove != 0) facing = sign(_hmove);
     sprite_index = spr_player_walk;
+    image_speed = 0.15;
     image_xscale = facing * player_scale;
     if (_hmove == 0) { state = player_state_idle; return; }
     if (input_check_pressed("jump") && on_ground) { state = player_state_jump; return; }
