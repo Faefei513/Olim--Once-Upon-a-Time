@@ -4,6 +4,7 @@ function player_state_idle() {
     x_speed = 0;
     var _hmove = input_check("right") - input_check("left");
     if (_hmove != 0) { state = player_state_walk; return; }
+    if (input_check_pressed("fly") && has_flight && energy_segments >= 1) { on_ground = false; state = player_state_fly; return; }
     if (input_check_pressed("jump") && on_ground) { state = player_state_jump; return; }
     if (!on_ground) { state = player_state_fall; return; }
 }
@@ -16,6 +17,7 @@ function player_state_walk() {
     image_speed = 0.15;
     image_xscale = facing * player_scale;
     if (_hmove == 0) { state = player_state_idle; return; }
+    if (input_check_pressed("fly") && has_flight && energy_segments >= 1) { on_ground = false; state = player_state_fly; return; }
     if (input_check_pressed("jump") && on_ground) { state = player_state_jump; return; }
     if (!on_ground) { state = player_state_fall; return; }
 }

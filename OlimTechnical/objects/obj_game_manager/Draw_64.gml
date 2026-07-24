@@ -75,7 +75,7 @@ if (room == rm_alpha) {
     if (global.flight_hint_timer > 0) {
         var _a = min(global.flight_hint_timer / 30, 1);
         draw_set_alpha(_a);
-        draw_text(_gui_w / 2, _gui_h * 0.30, "X to flap, hold SPACE to glide");
+        draw_text(_gui_w / 2, _gui_h * 0.30, "F to flap, hold SPACE to glide");
     }
 }
 
