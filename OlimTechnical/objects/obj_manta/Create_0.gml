@@ -49,18 +49,17 @@ if (room == rm_isles2 && !global.manta_arriving) {
 
 if (global.manta_arriving) {
     global.manta_arriving = false;
-    state = E_MANTA.TAXI;
+    state = E_MANTA.DESCENT;
     anim_timer = 0;
     anim_frame = 0;
     state_timer = 0;
-    x = 500;
-    y = 670;
+    x = 1000;
+    y = -500;
     dock_x = 7000;
     taxi_y = 670;
-    vx = 6;
-    cur_spr_b = global.manta_spr.taxi1_b;
-    cur_spr_f = global.manta_spr.taxi1_f;
-    cur_gondola = gd_taxi1;
+    cur_spr_b = global.manta_spr.descent1_b;
+    cur_spr_f = global.manta_spr.descent1_f;
+    cur_gondola = gd_descent1;
     var _player = instance_find(obj_player, 0);
     if (_player != noone) {
         rider = _player;

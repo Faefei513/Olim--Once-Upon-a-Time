@@ -1,4 +1,5 @@
 function player_state_idle() {
+    if (room == rm_ocean) { state = player_state_ocean; return; }
     if (on_ground) energy_segments = approach(energy_segments, energy_segments_max, ENERGY_REGEN_RATE);
     sprite_index = spr_player_idle;
     x_speed = 0;
@@ -75,4 +76,32 @@ function player_state_glide() {
     if (on_ground) { state = player_state_idle; return; }
 }
 function player_state_interact() { x_speed = 0; y_speed = 0; sprite_index = spr_player_idle; }
-function player_state_puzzle() { x_speed = 0; y_speed = 0; }
+function player_state_puzzle() {
+    x_speed = 0;
+    if (!on_ground) {
+        y_speed += GRAVITY;
+    } else {
+        y_speed = 0;
+        sprite_index = spr_player_idle;
+        image_speed = 1;
+    }
+}
+function player_state_ocean_locked() {
+    x_speed = 0;
+    y_speed = 0;
+    sprite_index = global.hswim_spr;
+    image_speed = 0.15;
+    image_angle = 0;
+}
+function player_state_ocean() {
+    var _hmove = input_check("right") - input_check("left");
+    var _vmove = input_check("down") - input_check("up");
+    x_speed = _hmove * move_speed;
+    y_speed = _vmove * move_speed + OCEAN_GRAVITY;
+    if (_hmove != 0) facing = sign(_hmove);
+    sprite_index = global.hswim_spr;
+    image_speed = 0.15;
+    image_xscale = facing * player_scale;
+    image_yscale = player_scale;
+    image_angle = (_vmove < 0) ? 60 * facing : 0;
+}

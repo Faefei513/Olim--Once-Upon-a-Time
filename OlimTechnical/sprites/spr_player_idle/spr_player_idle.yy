@@ -2,7 +2,7 @@
   "$GMSprite":"v2",
   "%Name":"spr_player_idle",
   "bboxMode":0,
-  "bbox_bottom":423,
+  "bbox_bottom":425,
   "bbox_left":35,
   "bbox_right":350,
   "bbox_top":25,

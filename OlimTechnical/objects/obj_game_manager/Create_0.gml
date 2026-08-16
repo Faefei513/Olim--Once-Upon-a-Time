@@ -1,3 +1,4 @@
+randomize();
 window_set_size(1600, 750);
 display_set_gui_size(1920, 900);
 depth = 75;
@@ -26,6 +27,45 @@ global.isles_bg2 = sprite_add("isles_bg2.png", 1, false, false, 0, 0);
 global.isles_fg = sprite_add("isles_fg.png", 1, false, false, 0, 0);
 global.isles_fg2 = sprite_add("isles_fg2.png", 1, false, false, 0, 0);
 global.isles_knife_spr = sprite_add("isles_knife.png", 1, false, false, 225, 225);
+global.hswim_spr = sprite_add("hswim.png", 6, false, false, 225, 225);
+sprite_set_speed(global.hswim_spr, 15, spritespeed_framespersecond);
+global.ocean_bg = sprite_add("ocean_bg.png", 1, false, false, 0, 0);
+global.ocean_mg = sprite_add("ocean_mg.png", 1, false, false, 0, 0);
+global.ocean_fg = sprite_add("ocean_fg.png", 1, false, false, 0, 0);
+global.leviathan_arrival = sprite_add("leviathan_arrival.png", 33, false, false, 0, 0);
+global.leviathan_blink = sprite_add("leviathan_blink.png", 30, false, false, 0, 0);
+global.goldfish_spr = [
+    sprite_add("goldfish1.png", 6, false, false, 498, 402),
+    sprite_add("goldfish2.png", 6, false, false, 498, 402),
+    sprite_add("goldfish3.png", 6, false, false, 498, 402),
+    sprite_add("goldfish4.png", 4, false, false, 1500, 1200),
+    sprite_add("goldfish5.png", 4, false, false, 498, 402)
+];
+global.goldfish_frames = [6, 6, 6, 4, 4];
+global.goldfish_is_front = [true, true, true, false, false];
+global.goldfish_scale = [0.8, 0.8, 0.8, 0.28, 0.8];
+global.goldfish_path = [
+    [-400, 800],
+    [1500, 1600],
+    [3000, 2600],
+    [4500, 3400],
+    [6400, 4400]
+];
+global.goldfish = [];
+global.goldfish_spawn_timer = 0;
+global.goldfish_initialized = false;
+global.ocean_fg_fade = 0;
+global.leviathan_state = 0;
+global.leviathan_alpha = 0;
+global.leviathan_frame = 0;
+global.leviathan_anim_timer = 0;
+global.leviathan_active_spr = -1;
+global.leviathan_dlg_created = false;
+global.leviathan_dlg_phase = 0;
+global.leviathan_last_choice = -1;
+global.ocean_ruins_seen = false;
+global.ocean_mural_seen = false;
+global.ocean_portal_spawned = false;
 global.isles_cutscene_spr = [
     sprite_add("isles_cutscene_0.png", 8, false, false, 960, 450),
     sprite_add("isles_cutscene_1.png", 8, false, false, 960, 450),
@@ -98,6 +138,22 @@ global.cutscene_state = 0;
 global.cutscene_alpha = 0;
 global.cutscene_frame = 0;
 global.cutscene_timer = 0;
+
+global.music_tracks = [
+    snd_music_drifting,
+    snd_music_spaghettification,
+    snd_music_turninthesun,
+    snd_music_waybackhome
+];
+global.music_track_vol = [0.8, 0.5, 0.8, 1.0];
+global.music_base_vol = 0.35;
+global.music_state = 0;
+global.music_current = -1;
+global.music_instance = -1;
+global.music_timer = 0;
+global.music_order = [];
+global.music_order_idx = 0;
+global.music_fade_started = false;
 
 global.grammar = {};
 global.grammar[$ "OLIM"] = { info: "Adverb", eng: "Once upon a time" };

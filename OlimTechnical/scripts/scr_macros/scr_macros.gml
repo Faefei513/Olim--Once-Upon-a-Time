@@ -7,6 +7,7 @@
 #macro GLIDE_GRAVITY        0.25
 #macro GLIDE_TERMINAL       3.0
 #macro GLIDE_H_MULTIPLIER   1.5
+#macro OCEAN_GRAVITY        0.3
 #macro CAMERA_LERP_SPEED    0.08
 #macro VIEW_W               1920
 #macro VIEW_H               1080

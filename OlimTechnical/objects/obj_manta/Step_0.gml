@@ -155,13 +155,7 @@ switch (state) {
             rider.x = x;
             rider.y = y + player_y_offset;
         }
-        if (is_ending_manta && y < -200 && global.ending_state == 0) {
-            global.ending_state = 1;
-            global.ending_alpha = 0;
-            if (rider != noone) {
-                rider.visible = false;
-            }
-        } else if (y < -1800) {
+        if (y < -1800) {
             state = E_MANTA.DESCENT;
             state_timer = 0;
             anim_timer = 0;
@@ -222,7 +216,15 @@ switch (state) {
             rider.y_speed = 0;
         }
         if (x >= dock_x) {
-            if (room == rm_isles) {
+            if (is_ending_manta) {
+                if (x > room_width + 500 && global.ending_state == 0) {
+                    global.ending_state = 1;
+                    global.ending_alpha = 0;
+                    if (rider != noone) {
+                        rider.visible = false;
+                    }
+                }
+            } else if (room == rm_isles) {
                 vx = 0;
                 vy = 0;
                 global.manta_arriving = true;

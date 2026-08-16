@@ -36,6 +36,8 @@ function player_move_and_collide() {
                 }
             }
         }
+    } else if (room == rm_ocean) {
+        _floor_y = room_height - 50;
     } else {
         var _tile_spr = (room == rm_forest) ? global.forest_floor : global.floor_tile;
         var _tile_h = (_tile_spr != -1) ? sprite_get_height(_tile_spr) * global.floor_scale : (TILE_SIZE * 2);

@@ -71,6 +71,28 @@ if (room == rm_isles) {
     }
 }
 
+if (room == rm_ocean) {
+    if (global.interact_hint_timer > 0) {
+        var _cam_x = camera_get_view_x(view_camera[0]);
+        var _cam_y = camera_get_view_y(view_camera[0]);
+        var _cam_w = camera_get_view_width(view_camera[0]);
+        var _cam_h = camera_get_view_height(view_camera[0]);
+        var _player = instance_find(obj_player, 0);
+        var _target = noone;
+        var _ruins = instance_find(obj_ocean_ruins, 0);
+        var _mural = instance_find(obj_ocean_mural, 0);
+        if (_player != noone && _ruins != noone && point_distance(_ruins.x, _ruins.y, _player.x, _player.y) < 500) _target = _ruins;
+        if (_player != noone && _mural != noone && point_distance(_mural.x, _mural.y, _player.x, _player.y) < 500) _target = _mural;
+        if (_target != noone) {
+            var _rx = (_target.x - _cam_x) / _cam_w * _gui_w;
+            var _ry = (_target.y - _cam_y) / _cam_h * _gui_h;
+            var _a = min(global.interact_hint_timer / 30, 1);
+            draw_set_alpha(_a);
+            draw_text(_rx, _ry - 80, "C to interact");
+        }
+    }
+}
+
 if (room == rm_alpha) {
     if (global.flight_hint_timer > 0) {
         var _a = min(global.flight_hint_timer / 30, 1);
@@ -81,20 +103,11 @@ if (room == rm_alpha) {
 
 if (!instance_exists(obj_dialogue)) draw_game_menu();
 
-// Ending overlay (Isles update thank-you)
+// Ending overlay
 if (global.ending_state > 0) {
     draw_set_alpha(global.ending_alpha);
     draw_set_colour(c_black);
     draw_rectangle(0, 0, _gui_w, _gui_h, false);
-    if (global.ending_state == 2) {
-        draw_set_alpha(1);
-        draw_set_colour(c_white);
-        draw_set_halign(fa_center);
-        draw_set_valign(fa_middle);
-        draw_text(_gui_w / 2, _gui_h / 2, "Thank you for playing the To Isles update!");
-        draw_set_alpha(0.6);
-        draw_text(_gui_w / 2, _gui_h / 2 + 60, "SPACE to continue");
-    }
 }
 
 // Cutscene overlay

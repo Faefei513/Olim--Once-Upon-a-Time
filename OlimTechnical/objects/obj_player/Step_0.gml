@@ -1,3 +1,5 @@
+if (global.ending_state > 0) return;
+
 var _hub_idx = (room == rm_hub) ? image_index : 0;
 if (room == rm_hub && (input_check_pressed("jump") || input_check_pressed("fly")) && !hub_full_anim && state != player_state_puzzle) {
     hub_full_anim = true;
