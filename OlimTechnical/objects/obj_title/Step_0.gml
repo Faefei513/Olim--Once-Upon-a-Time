@@ -30,7 +30,7 @@ var _rows = 5;
 if (test_expanded) _rows += 1;
 var _block_h = _rows * btn_h + (_rows - 1) * btn_gap;
 var _start_y = (_gui_h / 2) - (_block_h / 2) + 55;
-var _btn_x = (_gui_w / 4.5) - (btn_w / 2);
+var _btn_x = (_gui_w / 3.5) - (btn_w / 2);
 
 hovered = -1;
 

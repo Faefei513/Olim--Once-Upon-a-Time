@@ -1,39 +1,12 @@
 var _gui_w = display_get_gui_width();
 var _gui_h = display_get_gui_height();
 
-// Draw poster background scaled to fit height, extend edges
+// Draw background scaled to fill screen
 if (global.title_bg != -1) {
     var _sw = sprite_get_width(global.title_bg);
     var _sh = sprite_get_height(global.title_bg);
-    var _scale = _gui_h / _sh;
-    var _drawn_w = _sw * _scale;
-    var _dx = _gui_w - _drawn_w;
-    var _strip = 20;
-
-    // Extend left edge
-    if (_dx > 0) {
-        draw_sprite_part_ext(global.title_bg, 0, 0, 0, _strip, _sh, 0, 0, _dx / _strip, _scale, c_white, 1);
-    }
-    // Extend right edge
-    var _right_gap = _gui_w - _dx - _drawn_w;
-    if (_right_gap > 0) {
-        draw_sprite_part_ext(global.title_bg, 0, _sw - _strip, 0, _strip, _sh, _dx + _drawn_w, 0, _right_gap / _strip, _scale, c_white, 1);
-    }
-    // Draw poster centered
-    draw_sprite_ext(global.title_bg, 0, _dx, 0, _scale, _scale, 0, c_white, 1);
-
-    // Cover original logo on the poster with gradient strip taken from just past the logo
-    var _cover_src_x = 1290;
-    var _cover_w = 1350 * _scale;
-    draw_sprite_part_ext(global.title_bg, 0, _cover_src_x, 0, _strip, _sh * 0.35, _dx, 0, _cover_w / _strip, _scale, c_white, 1);
-
-    // Draw logo pinned to top-left
-    var _logo_x = 0;
-    var _logo_y = 60;
-    var _logo_w = 1300;
-    var _logo_h = 1340;
-    var _logo_scale = _gui_h * 0.35 / _logo_h;
-    draw_sprite_part_ext(global.title_bg, 0, _logo_x, _logo_y, _logo_w, _logo_h, 30, 20, _logo_scale, _logo_scale, c_white, 1);
+    var _scale = max(_gui_w / _sw, _gui_h / _sh);
+    draw_sprite_ext(global.title_bg, 0, 0, 0, _scale, _scale, 0, c_white, 1);
 }
 
 // Darken overlay so buttons are readable
@@ -46,7 +19,7 @@ var _rows = 5;
 if (test_expanded) _rows += 1;
 var _block_h = _rows * btn_h + (_rows - 1) * btn_gap;
 var _start_y = (_gui_h / 2) - (_block_h / 2) + 55;
-var _btn_x = (_gui_w / 4.5) - (btn_w / 2);
+var _btn_x = (_gui_w / 3.5) - (btn_w / 2);
 
 draw_set_font(-1);
 
